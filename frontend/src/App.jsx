@@ -197,6 +197,7 @@ const cardStyle = {
 
 const tableStyle = {
   width: "100%",
+  tableLayout: "fixed",
   backgroundColor: "#2a2a40",
   borderCollapse: "collapse",
   minWidth: "900px",
