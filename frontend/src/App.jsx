@@ -83,7 +83,8 @@ function App() {
 
       <h2 style={{ marginTop: "40px" }}>Events</h2>
 
-      <div style={{ overflowX: "auto" }}>
+      <div style={{ width: "100%", overflowX: "auto" }}>
+
         <table style={tableStyle}>
           <thead style={tableHeadStyle}>
             <tr>
@@ -155,7 +156,10 @@ const containerStyle = {
   color: "white",
   width: "100%",
   boxSizing: "border-box",
+  maxWidth: "1400px",
+  margin: "0 auto",
 };
+
 
 const statsContainer = {
   display: "flex",
@@ -181,7 +185,9 @@ const tableStyle = {
   width: "100%",
   backgroundColor: "#2a2a40",
   borderCollapse: "collapse",
+  minWidth: "900px",
 };
+
 
 const tableHeadStyle = {
   backgroundColor: "#111827",
