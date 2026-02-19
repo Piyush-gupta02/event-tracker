@@ -10,8 +10,9 @@ function App() {
   }, []);
 
   const fetchData = async () => {
-    const eventsRes = await axios.get("http://127.0.0.1:8000/events");
-    const statsRes = await axios.get("http://127.0.0.1:8000/stats");
+    const eventsRes = await axios.get("https://event-tracker-backend-6ab7.onrender.com/events");
+
+    const statsRes = await axios.get("https://event-tracker-backend-6ab7.onrender.com/stats");
 
     setEvents(eventsRes.data);
     setStats(statsRes.data);
