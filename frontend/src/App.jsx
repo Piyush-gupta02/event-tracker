@@ -7,27 +7,24 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [eventsRes, statsRes] = await Promise.all([
+          axios.get("https://event-tracker-backend-6ab7.onrender.com/events"),
+          axios.get("https://event-tracker-backend-6ab7.onrender.com/stats"),
+        ]);
+
+        setEvents(eventsRes.data);
+        setStats(statsRes.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchData();
   }, []);
-
-  const fetchData = async () => {
-    try {
-      const eventsRes = await axios.get(
-        "https://event-tracker-backend-6ab7.onrender.com/events"
-      );
-
-      const statsRes = await axios.get(
-        "https://event-tracker-backend-6ab7.onrender.com/stats"
-      );
-
-      setEvents(eventsRes.data);
-      setStats(statsRes.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -40,91 +37,45 @@ function App() {
   return (
     <div style={containerStyle}>
       <div style={headerStyle}>
-  <h1 style={{ margin: 0 }}>Event Analytics Dashboard</h1>
-  <span style={subTextStyle}>
-    Live Jaipur Events • Auto Updated
-  </span>
-</div>
-
+        <h1 style={{ margin: 0 }}>Event Analytics Dashboard</h1>
+        <span style={subTextStyle}>
+          Live Jaipur Events • Auto Updated
+        </span>
+      </div>
 
       <h2>Stats</h2>
 
       <div style={statsContainer}>
-        <div
-          style={cardStyle}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.transform = "translateY(-6px)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.transform = "translateY(0px)")
-          }
-        >
-          Total: {stats.total_events}
-        </div>
-
-        <div
-          style={cardStyle}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.transform = "translateY(-6px)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.transform = "translateY(0px)")
-          }
-        >
-          Upcoming: {stats.upcoming}
-        </div>
-
-        <div
-          style={cardStyle}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.transform = "translateY(-6px)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.transform = "translateY(0px)")
-          }
-        >
-          Expired: {stats.expired}
-        </div>
+        <div style={cardStyle}>Total: {stats.total_events}</div>
+        <div style={cardStyle}>Upcoming: {stats.upcoming}</div>
+        <div style={cardStyle}>Expired: {stats.expired}</div>
       </div>
 
       <h2 style={{ marginTop: "40px" }}>Events</h2>
 
-      <div style={{ width: "100%",overflowX: "auto" }}>
-
+      <div style={{ width: "100%", overflowX: "auto" }}>
         <table style={tableStyle}>
           <thead style={tableHeadStyle}>
-  <tr>
-    <th style={{ width: "70%" }}>Event Name</th>
-    <th style={{ width: "10%", textAlign: "center" }}>City</th>
-    <th style={{ width: "12%", textAlign: "center" }}>Status</th>
-    <th style={{ width: "8%", textAlign: "center" }}>URL</th>
-  </tr>
-</thead>
-
+            <tr>
+              <th style={{ width: "70%" }}>Event Name</th>
+              <th style={{ width: "10%", textAlign: "center" }}>City</th>
+              <th style={{ width: "12%", textAlign: "center" }}>Status</th>
+              <th style={{ width: "8%", textAlign: "center" }}>URL</th>
+            </tr>
+          </thead>
 
           <tbody>
             {events.map((event, index) => (
-              <tr
-                key={index}
-                style={rowStyle}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.background = "#32324a")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.background = "")
-                }
-              >
-                <td style={{ padding: "14px 10px" }}>
-  {event["Event Name"]}
-</td>
+              <tr key={index}>
+                <td style={cellLeft}>
+                  {event["Event Name"]}
+                </td>
 
-                <td style={{ padding: "14px 10px", textAlign: "center" }}>
-  {event.City}
-</td>
+                <td style={cellCenter}>
+                  {event.City}
+                </td>
 
-
-                <td style={{ padding: "14px 10px", textAlign: "center" }}>
-
+                <td style={cellCenter}>
                   <span
                     style={{
                       padding: "6px 12px",
@@ -142,8 +93,7 @@ function App() {
                   </span>
                 </td>
 
-                <td style={{ padding: "14px 10px", textAlign: "center" }}>
-
+                <td style={cellCenter}>
                   <a
                     href={event.URL}
                     target="_blank"
@@ -162,6 +112,7 @@ function App() {
   );
 }
 
+/* ---------------- STYLES ---------------- */
 
 const containerStyle = {
   padding: "40px",
@@ -173,7 +124,16 @@ const containerStyle = {
   boxSizing: "border-box",
 };
 
+const headerStyle = {
+  marginBottom: "40px",
+  paddingBottom: "20px",
+  borderBottom: "1px solid #333",
+};
 
+const subTextStyle = {
+  fontSize: "14px",
+  color: "#aaa",
+};
 
 const statsContainer = {
   display: "flex",
@@ -189,8 +149,6 @@ const cardStyle = {
   color: "white",
   background: "linear-gradient(135deg, #667eea, #764ba2)",
   boxShadow: "0 6px 20px rgba(0,0,0,0.3)",
-  transition: "all 0.3s ease",
-  cursor: "pointer",
   minWidth: "180px",
   textAlign: "center",
 };
@@ -202,16 +160,19 @@ const tableStyle = {
   borderCollapse: "collapse",
   minWidth: "900px",
   fontSize: "14px",
-
 };
-
 
 const tableHeadStyle = {
   backgroundColor: "#111827",
 };
 
-const rowStyle = {
-  transition: "0.2s",
+const cellLeft = {
+  padding: "14px 10px",
+};
+
+const cellCenter = {
+  padding: "14px 10px",
+  textAlign: "center",
 };
 
 const linkStyle = {
@@ -228,16 +189,6 @@ const loadingStyle = {
   alignItems: "center",
   justifyContent: "center",
   fontFamily: "Arial",
-};
-const headerStyle = {
-  marginBottom: "40px",
-  paddingBottom: "20px",
-  borderBottom: "1px solid #333",
-};
-
-const subTextStyle = {
-  fontSize: "14px",
-  color: "#aaa",
 };
 
 export default App;
