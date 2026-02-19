@@ -39,7 +39,13 @@ function App() {
 
   return (
     <div style={containerStyle}>
-      <h1 style={{ marginBottom: "30px" }}>Event Analytics Dashboard</h1>
+      <div style={headerStyle}>
+  <h1 style={{ margin: 0 }}>Event Analytics Dashboard</h1>
+  <span style={subTextStyle}>
+    Live Jaipur Events • Auto Updated
+  </span>
+</div>
+
 
       <h2>Stats</h2>
 
@@ -107,8 +113,14 @@ function App() {
                   (e.currentTarget.style.background = "")
                 }
               >
-                <td>{event["Event Name"]}</td>
-                <td>{event.City}</td>
+                <td style={{ padding: "14px 10px" }}>
+  {event["Event Name"]}
+</td>
+
+                <td style={{ padding: "14px 10px", textAlign: "center" }}>
+  {event.City}
+</td>
+
 
                 <td>
                   <span
@@ -186,6 +198,8 @@ const tableStyle = {
   backgroundColor: "#2a2a40",
   borderCollapse: "collapse",
   minWidth: "900px",
+  fontSize: "14px",
+
 };
 
 
@@ -211,6 +225,16 @@ const loadingStyle = {
   alignItems: "center",
   justifyContent: "center",
   fontFamily: "Arial",
+};
+const headerStyle = {
+  marginBottom: "40px",
+  paddingBottom: "20px",
+  borderBottom: "1px solid #333",
+};
+
+const subTextStyle = {
+  fontSize: "14px",
+  color: "#aaa",
 };
 
 export default App;
