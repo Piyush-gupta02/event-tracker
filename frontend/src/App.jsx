@@ -48,7 +48,8 @@ function App() {
   }}
 >
 
-        <thead>
+        <thead style={{ backgroundColor: "#111827" }}>
+
           <tr>
             <th>Event Name</th>
             <th>City</th>
@@ -62,9 +63,25 @@ function App() {
             <tr key={index}>
               <td>{event["Event Name"]}</td>
               <td>{event.City}</td>
-              <td>{event.Status}</td>
               <td>
-                <a href={event.URL} target="_blank">
+  <span
+    style={{
+      padding: "6px 12px",
+      borderRadius: "20px",
+      backgroundColor:
+        event.Status === "Upcoming" ? "#22c55e" : "#ef4444",
+      color: "white",
+      fontWeight: "bold",
+      fontSize: "12px",
+    }}
+  >
+    {event.Status}
+  </span>
+</td>
+
+              <td>
+                <a href={event.URL} target="_blank" rel="noopener noreferrer">
+
                   View
                 </a>
               </td>
