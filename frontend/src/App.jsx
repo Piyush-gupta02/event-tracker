@@ -43,6 +43,7 @@ function App() {
   cellPadding="10"
   style={{
     width: "100%",
+    tableLayout: "fixed",
     backgroundColor: "#2a2a40",
     borderColor: "#444",
   }}
