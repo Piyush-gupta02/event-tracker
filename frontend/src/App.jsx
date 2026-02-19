@@ -93,13 +93,14 @@ function App() {
 
         <table style={tableStyle}>
           <thead style={tableHeadStyle}>
-            <tr>
-              <th>Event Name</th>
-              <th>City</th>
-              <th>Status</th>
-              <th>URL</th>
-            </tr>
-          </thead>
+  <tr>
+    <th style={{ width: "70%" }}>Event Name</th>
+    <th style={{ width: "10%", textAlign: "center" }}>City</th>
+    <th style={{ width: "12%", textAlign: "center" }}>Status</th>
+    <th style={{ width: "8%", textAlign: "center" }}>URL</th>
+  </tr>
+</thead>
+
 
           <tbody>
             {events.map((event, index) => (
@@ -122,7 +123,8 @@ function App() {
 </td>
 
 
-                <td>
+                <td style={{ padding: "14px 10px", textAlign: "center" }}>
+
                   <span
                     style={{
                       padding: "6px 12px",
@@ -140,7 +142,8 @@ function App() {
                   </span>
                 </td>
 
-                <td>
+                <td style={{ padding: "14px 10px", textAlign: "center" }}>
+
                   <a
                     href={event.URL}
                     target="_blank"
@@ -168,9 +171,8 @@ const containerStyle = {
   color: "white",
   width: "100%",
   boxSizing: "border-box",
-  maxWidth: "1400px",
-  margin: "0 auto",
 };
+
 
 
 const statsContainer = {
