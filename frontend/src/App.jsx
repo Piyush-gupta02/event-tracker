@@ -89,7 +89,8 @@ function App() {
 
       <h2 style={{ marginTop: "40px" }}>Events</h2>
 
-      <div style={{ width: "100%", overflowX: "auto" }}>
+      <div style={{ width: "100%",tableLayout: "fixed",
+ overflowX: "auto" }}>
 
         <table style={tableStyle}>
           <thead style={tableHeadStyle}>
