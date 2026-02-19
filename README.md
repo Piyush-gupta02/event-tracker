@@ -126,7 +126,7 @@ Storage:
 ## 🌐 Live Links
 
 Frontend Dashboard:
-(event-tracker-mrqxcu3fj-piyushs-projects-454a960e.vercel.app)
+(event-tracker-jeemhmpzk-piyushs-projects-454a960e.vercel.app)
 
 Backend API:
 (https://event-tracker-backend-6ab7.onrender.com)
