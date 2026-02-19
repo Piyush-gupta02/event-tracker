@@ -1,3 +1,5 @@
+import os
+import json
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 import gspread
@@ -19,10 +21,11 @@ def get_sheet_data():
         "https://spreadsheets.google.com/feeds",
         "https://www.googleapis.com/auth/drive",
     ]
+    credentials_dict = json.loads(os.environ["GOOGLE_CREDENTIALS"])
 
-    creds = ServiceAccountCredentials.from_json_keyfile_name(
-        "../credentials.json", scope
-    )
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+    credentials_dict, scope)
+    
 
     client = gspread.authorize(creds)
 
