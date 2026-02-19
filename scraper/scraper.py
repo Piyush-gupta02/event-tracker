@@ -25,7 +25,6 @@ def fetch_events():
     driver.get(URL)
     time.sleep(5)
 
-    # Scroll page
     for _ in range(5):
         driver.execute_script(
             "window.scrollTo(0, document.body.scrollHeight);"
@@ -53,7 +52,6 @@ def fetch_events():
 
     driver.quit()
 
-    # Deduplicate by URL
     unique_events = {e["URL"]: e for e in events}
     return list(unique_events.values())
 
